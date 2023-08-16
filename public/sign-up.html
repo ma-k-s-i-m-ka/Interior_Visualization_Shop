@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<meta charset="UTF-8">
+<title>Sign UP</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css?family=Kaushan+Script|Montserrat:400,700&amp;subset=cyrillic-ext" rel="stylesheet">
+<title>Interior Visualization</title>
+<link rel="stylesheet" href="style.css">
+<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+
+
+</head>
+
+
+<body>
+
+<div class="login2">
+  <h3 class= "active" style="color: #fff"> Sign up </h3>
+    <form id="registration-form">
+        <label class="label2" for="email">Email:</label>
+        <input class="text3" type="email" id="email" name="email" required><br><br>
+        <label class="label2" for="name">Name:</label>
+        <input class="text3" type="text" id="name" name="name" required><br><br>
+        <label class="label2" for="surname">Surname:</label>
+        <input class="text3" type="text" id="surname" name="surname" required><br><br>
+        <label class="label2" for="password">Password:</label>
+        <input class="text3" type="password" id="password" name="password" required><br><br>
+        <button class="btn" type="submit">Sign up</button>
+    </form>
+
+    <form id="confirmation-form" style="display: none;">
+        <h3 style="padding-right: 30px" class= "active">expect code</h3>
+       <label class="label2" for="code">Mail Code:</label><br>
+       <input class="text2" type="text" id="code" name="code" required><br><br>
+       <button class="btn" type="submit">Send code</button>
+    </form>
+
+    <form id="reg-success" style="display: none;">
+        <h6 style="margin-left: 30%">You have registered in the system!</h6>
+        <a style="text-align: center" href="index.html" class="btn">Return to main window</a>
+    </form>
+</div>
+
+<div id="response"></div>
+
+<script>
+  document.getElementById('registration-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const form = event.target;
+    const formData = new FormData(form);
+
+    const requestData = {
+      email: formData.get('email'),
+      name: formData.get('name'),
+      surname: formData.get('surname'),
+      password: formData.get('password')
+    };
+
+      // Покажем форму подтверждения после отправки данных
+      const confirmationForm = document.getElementById('confirmation-form');
+      confirmationForm.style.display = 'block';
+
+    fetch('http://localhost:3001/sign_up', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(requestData)
+
+    })
+        .then(response => response.json())
+        .then(data => {
+
+    })
+        .catch(error => {
+            // Обработка ошибок
+            console.error('Registration error:', error);
+        });
+  });
+  document.getElementById('confirmation-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const code = document.getElementById('code').value;
+    const requestData = {
+      code: code
+    };
+
+    fetch('http://localhost:3001/sign_up/checkmail', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(requestData)
+    })
+        .then(response => response.json())
+        .then(data => {
+            // Показываем блок успешного входа и кнопку возврата
+            const loginSuccessForm = document.getElementById('reg-success');
+            loginSuccessForm.style.display = 'block';
+        })
+        .catch(error => {
+            // Обработка ошибок
+            console.error('Confirmation error:', error);
+        });
+  });
+
+</script>
+
+</body>
+</html>

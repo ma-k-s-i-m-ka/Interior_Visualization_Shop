@@ -1,0 +1,16 @@
+http:
+  host:            localhost
+  port:            3001
+  read_timeout:    30  # Seconds
+  write_timeout:   30  # Seconds
+
+postgresql:
+  request_timeout:    5                        # Seconds
+  connection_timeout: 10                       # Seconds
+  shutdown_timeout:   5                        # Seconds
+
+jwt:
+  access_expiration_minutes: 10
+  refresh_expiration_days: 15
+  access_token_secret_key: maks
+  refresh_token_secret_key: 1992

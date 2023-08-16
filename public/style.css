@@ -1,0 +1,578 @@
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+
+    font-size: 15px;
+    line-height: 1.6;
+    color: #333;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+}
+
+
+/* Container */
+.container {
+    width: 100%;
+    max-width: 1600px;
+
+    margin: 0 auto;
+}
+
+.container2 {
+    width: 100%;
+    max-width: 1500px;
+    padding: 0 15px;
+    margin: 0 auto;
+}
+
+.container3 {
+    width: 100%;
+    max-width: 1500px;
+    padding: 0 15px;
+    margin: 0 auto;
+}
+
+
+/* Intro */
+.intro {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+
+    background: url("6.jpg") center no-repeat;
+    -webkit-background-size: cover;
+    background-size: cover;
+}
+
+.intro__inner {
+    width: 100%;
+    max-width: 880px;
+    margin: 0 auto;
+    opacity: 0.9;
+    text-align: center;
+}
+
+.intro__title {
+    color: #fff;
+    font-size: 150px;
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 1;
+}
+
+.intro__title:after {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 3px;
+    margin: 60px auto;
+
+    background-color: #fff;
+}
+
+.intro__suptitle {
+    margin-bottom: 20px;
+    opacity: 0.7;
+    font-family: 'Kaushan Script', cursive;
+    font-size: 72px;
+    color: #fff;
+}
+
+
+/* Header */
+.header {
+    width: 100%;
+    padding-top: 30px;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.header__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header__logo {
+    font-size: 50px;
+    font-weight: 700;
+    color: #fff;
+}
+
+
+/* Nav */
+.nav {
+    font-size: 19px;
+    text-transform: uppercase;
+}
+
+.nav__link {
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 15px;
+    position: relative;
+
+    color: #fff;
+    text-decoration: none;
+
+    transition: color .1s linear;
+}
+
+.nav__link:after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 3px;
+
+    background-color: #fce38a;
+    opacity: 0;
+
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1;
+
+    transition: opacity .1s linear;
+}
+
+.nav__link:hover {
+    color: #fce38a;
+}
+
+.nav__link:hover:after,
+.nav__link.active:after {
+    opacity: 1;
+}
+
+.nav__link.active {
+    color: #fce38a;
+}
+
+/* Button */
+.btn {
+    display: inline-block;
+    vertical-align: top;
+    padding: 8px 30px;
+    border-radius: 20px;
+    border: 3px solid #fce38a;
+    opacity: 0.8;
+    margin-left: 20%;
+    font-size: 20px;
+    width: 60%;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+    text-transform: uppercase;
+    text-decoration: none;
+
+    transition: background .1s linear, color .1s linear;
+}
+
+.btn:hover {
+    background-color: #fff;
+    color: #333;
+    opacity: 1;
+}
+
+
+
+/* Slider */
+.slider__text {
+    display: none;
+}
+
+.slider {
+    width: 100%;
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.slider__inner {
+    display: flex;
+    justify-content: space-between;
+}
+
+.slider__item {
+    width: 23%;
+    padding: 20px 0;
+    position: relative;
+
+    border-top: 3px solid #fff;
+    opacity: 0.7;
+
+    font-size: 18px;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.slider__item.active {
+    opacity: 1;
+}
+
+.slider__item.active:before {
+    content: "";
+    display: block;
+    width: 70px;
+    height: 3px;
+
+    background-color: #f38181;
+
+    position: absolute;
+    top: -3px;
+    left: 0;
+    z-index: 1;
+}
+
+.slider__num {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+/* styles.css */
+/* ... ваш старый CSS код ... */
+
+.account {
+    position: relative;
+    cursor: pointer;
+}
+
+.account__submenu {
+    display: none;
+    position: absolute;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    padding: 10px;
+    z-index: 1;
+}
+
+.account:hover .account__submenu {
+    display: block;
+}
+
+/* ... ваш старый CSS код ... */
+
+
+.login {
+    padding: 60px 60px;
+    background: url(9.jpg) no-repeat   center center #505050;
+    background-size: cover;
+}
+
+.active {
+    border-bottom: 3px solid #fce38a;
+}
+h3 {
+    padding-left: 90%;
+    font-size: 28px;
+    text-transform: uppercase;
+    padding-bottom: 5px;
+    letter-spacing: 5px;
+    display: inline-block;
+    font-weight: 100;
+}
+
+.text {
+    color: #fff;
+    margin-left: 5%;
+    font-size: 20px;
+    width: 90%;
+    padding: 20px 20px;
+    display: block;
+    height: 40px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 3px solid #fce38a;
+    opacity: 0.8;
+    transition: all 0.5s ease-in-out;
+}
+
+.label{
+    padding-bottom: 5px;
+    letter-spacing: 5px;
+    color: #ffff;
+    opacity: 0.9;
+    margin-left: 20px;
+    font-size: 25px;
+}
+.file_text{
+    margin-left: 5%;
+    font-size: 20px;
+    width: 90%;
+    padding: 20px 20px;
+    display: block;
+    height: 80px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 3px solid #fce38a;
+    opacity: 0.8;
+    transition: all 0.5s ease-in-out;
+}
+
+
+.login2 {
+    padding: 130px 60px;
+    background: url(5.jpg) no-repeat   center center #505050;
+    background-size: cover;
+
+}
+
+.text2 {
+    margin-left: 25%;
+    font-size: 20px;
+    width: 50%;
+    padding: 20px 20px;
+    display: block;
+    height: 40px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 3px solid #fce38a;
+    opacity: 0.8;
+    transition: all 0.5s ease-in-out;
+
+}
+
+.text3 {
+    color: #fff;
+    margin-left: 25%;
+    font-size: 20px;
+    width: 50%;
+    padding: 20px 20px;
+    display: block;
+    height: 40px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 3px solid #fce38a;
+    opacity: 0.8;
+    transition: all 0.5s ease-in-out;
+}
+
+.label2{
+    padding-bottom: 5px;
+    letter-spacing: 5px;
+    color: #ffff;
+    opacity: 0.9;
+    margin-left: 25%;
+    font-size: 25px;
+}
+
+.login3 {
+    padding: 264px 60px;
+    background: url(8.jpg) no-repeat   center center #505050;
+    background-size: cover;
+}
+
+h4 {
+    padding-left: 90%;
+    font-size: 28px;
+    text-transform: uppercase;
+    padding-bottom: 5px;
+    letter-spacing: 5px;
+    display: inline-block;
+    font-weight: 100;
+}
+
+h5 {
+    color: white;
+    padding-left: 40%;
+    font-size: 28px;
+    text-transform: uppercase;
+    padding-bottom: 5px;
+    letter-spacing: 5px;
+    display: inline-block;
+    font-weight: 100;
+}
+
+h6 {
+    color: white;
+    text-align: center;
+    font-size: 28px;
+    text-transform: uppercase;
+    padding-bottom: 5px;
+    letter-spacing: 5px;
+    display: inline-block;
+    font-weight: 100;
+}
+
+.page {
+    overflow: hidden;
+}
+
+.section {
+    padding: 80px 0;
+}
+
+
+.section__header {
+    width: 100%;
+    margin: 0 auto 50px;
+    text-align: center;
+}
+
+.section__suptitle {
+    font-family: 'Kaushan Script', cursive;
+    font-size: 40px;
+    color: #333;
+}
+
+.section__title {
+    font-size: 45px;
+    font-weight: 700;
+    color: #333;
+    text-transform: uppercase;
+}
+
+.section__title:after {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 3px;
+    margin: 30px auto;
+
+    background-color: #f38181;
+}
+
+.section__text {
+    font-size: 25px;
+    color: #999;
+}
+
+/* Card */
+.card {
+    margin: 80px -15px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.card__item {
+    width: 33.33333%;
+    padding: 0 15px;
+}
+
+.card__inner {
+    position: relative;
+    background-color: #95e1d3;
+}
+
+.card__inner:hover .card__img {
+    transform: translate3d(-10px, -10px, 0);
+}
+
+.card__inner:hover .card__img img {
+    opacity: .1;
+}
+
+.card__inner:hover .card__text {
+    opacity: 1;
+}
+
+.card__img {
+    background: linear-gradient(to bottom, #f38181, #fce38a);
+    transition: transform .2s linear;
+}
+
+.card__img img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    transition: opacity .1s linear;
+}
+
+.card__text {
+    width: 100%;
+
+    font-size: 18px;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-align: center;
+    opacity: 0;
+
+    position: absolute;
+    top: 50%;
+    left: 0;
+    z-index: 2;
+    transform: translate3d(0, -50%, 0);
+    transition: opacity .2s linear;
+}
+
+
+/*Clients */
+
+.clients {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 70px;
+}
+
+.clients__item {
+    width: 50%;
+    padding: 0 45px 0 175px;
+    position: relative;
+    margin-bottom: 60px;
+}
+
+.clients__photo {
+    width: 110px;
+    height: 110px;
+
+    border-radius: 50%;
+
+    position: absolute;
+    top: 0;
+    left: 40px;
+    z-index: 1;
+}
+
+.clients__name {
+    margin-bottom: 5px;
+
+    font-size: 20px;
+    color: #333;
+    text-transform: uppercase;
+}
+
+.clients__prof {
+    font-size: 20px;
+    color: #333;
+    font-style: italic;
+    font-weight: 300;
+}
+
+.clients__text {
+    font-size: 18px;
+    color: #999;
+}
+
+.clients__text:before {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 3px;
+    margin: 15px 0;
+
+    background-color: #f38181;
+}
+
+.section--clients {
+    width: 100%;
+    background: #f5f5f5 url("clients-bg.jpg") center no-repeat;
+    -webkit-background-size: cover;
+    background-size: cover;
+}

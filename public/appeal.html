@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Appeal</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Kaushan+Script|Montserrat:400,700&amp;subset=cyrillic-ext" rel="stylesheet">
+    <title>Interior Visualization</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+</head>
+
+
+
+<body>
+
+<div class="login">
+      <h3 class="active" style="color: #fff"> Appeal </h3>
+      <form id="appeal-form" enctype="multipart/form-data">
+            <label class="label" for="email">Email:</label><br>
+            <input class="text" type="email" id="email" name="email" required><br><br>
+            <label class="label" for="phonenumber">Phone Number:</label><br>
+            <input class="text"  type="tel" id="phonenumber" name="phonenumber" required><br><br>
+            <label class="label" for="nickname">Nickname:</label><br>
+            <input class="text" type="text" id="nickname" name="nickname" required><br><br>
+            <label class="label" for="subject">Subject:</label><br>
+            <input class="text" type="text" id="subject" name="subject"><br><br>
+            <label class="label" for="message">Message:</label><br>
+            <textarea style="padding:80px 0px" class="text" type="text" id="message" name="message" rows="4" cols="50" required></textarea><br><br>
+            <label class="label" for="document">Document:</label><br>
+            <input  class="file_text" type="file" id="document" name="document"><br><br>
+            <button class="btn" type="submit" value="Submit">Send appeal</button>
+      </form>
+
+    <form id="error-message" STYLE=" display: none;">
+    <h6 style="color:#fce38a;margin-left: 26%">To apply, the user must be logged in!</h6>
+    <a style="text-align: center" href="sign-in.html" class="btn">Sign IN</a>
+    <a style="text-align: center; margin-top: 5px" href="sign-up.html" class="btn">Sign UP</a>
+    </form>
+
+    <form id="appeal-success" style="display: none;">
+        <h5 style="margin-left: 45px ">Appeal sent!</h5>
+        <a style="text-align: center" href="index.html" class="btn">Return to main window</a>
+    </form>
+
+</div>
+<script>
+    function clearLocalStorage() {
+        localStorage.clear();
+    }
+
+    // Очищаем localStorage каждые 5 минут (300000 миллисекунд)
+    setInterval(clearLocalStorage, 50000);
+
+
+    document.getElementById('appeal-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // Извлечение токена из localStorage
+       const token = localStorage.getItem('access_token');
+        // Получаем токен из SessionStorage
+      //  const token = sessionStorage.getItem('access_token');
+        if (!token) {
+            // Если токен отсутствует, покажите сообщение об ошибке
+            document.getElementById('error-message').style.display = 'block';
+            return; // Прервать выполнение функции, не выполнять fetch
+        }
+
+
+        const form = event.target;
+        const formData = new FormData(form);
+
+        // Добавление токена в заголовок запроса
+        const headers = new Headers();
+        headers.append('Authorization', `Bearer ${token}`);
+
+        // Отправка данных на сервер с токеном в заголовке
+        fetch('http://localhost:3001/protected/appeal', {
+            method: 'POST',
+            headers: headers,
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Заявка создана:', data);
+
+                // Если запрос был успешным, покажите сообщение о успешной отправке
+                document.getElementById('appeal-success').style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Create appeal error:', error);
+            });
+    });
+</script>
+
+</body>
+</html>

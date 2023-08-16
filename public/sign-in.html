@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign IN</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Kaushan+Script|Montserrat:400,700&amp;subset=cyrillic-ext" rel="stylesheet">
+    <title>Interior Visualization</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+
+</head>
+<body>
+
+
+<div class="login3">
+    <h4 class= "active"> Sign in </h4>
+        <form id="login-form">
+                <label class="label2" for="email">Email:</label>
+                <input class="text2" type="email" id="email" name="email" required><br><br>
+                <label class="label2" for="password">Password:</label>
+                <input class="text2" type="password" id="password" name="password" required><br><br>
+                <button class="btn" type="submit">Log in</button>
+        </form>
+
+    <h6 id="error-message" style="color:#fce38a; display: none;">Incorrect login or password!</h6>
+
+    <form id="login-success" style="display: none;">
+        <h5>You are logged in!</h5>
+        <a style="text-align: center" href="index.html" class="btn">Return to main window</a>
+    </form>
+</div>
+
+
+<div id="response"></div>
+<script>
+    document.getElementById('login-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const form = event.target;
+        const formData = new FormData(form);
+
+        const requestData = {
+            email: formData.get('email'),
+            password: formData.get('password')
+        };
+
+        fetch('http://localhost:3001/sign_in/mail', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestData)
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.jwt && data.jwt.access_token) {
+                    // Сохраняем токен в localStorage
+                    localStorage.setItem('access_token', data.jwt.access_token);
+                    // Показываем блок успешного входа и кнопку возврата
+                    const loginSuccessForm = document.getElementById('login-success');
+                    loginSuccessForm.style.display = 'block';
+                    // Скрываем сообщение об ошибке
+
+                    const errorMessage = document.getElementById('error-message');
+                    errorMessage.style.display = 'none';
+                } else {
+                    const errorMessage = document.getElementById('error-message');
+                    errorMessage.style.display = 'block';
+                }
+
+               // sessionStorage.setItem('access_token', data.jwt.access_token);
+            })
+            .catch(error => {
+                // Обработка ошибок
+                console.error('Login error:', error);
+            });
+    });
+</script>
+</body>
+</html>
