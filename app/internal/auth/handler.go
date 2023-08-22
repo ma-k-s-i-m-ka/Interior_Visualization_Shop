@@ -135,6 +135,7 @@ func (h *Handler) RegisterUser(w http.ResponseWriter, r *http.Request) {
 		response.InternalError(w, fmt.Sprintf("cannot create user: %v", err), "")
 		return
 	}
+
 	h.log.Info("REGISTER USER IS COMPLETED")
 	response.JSON(w, http.StatusCreated, map[string]interface{}{
 		"user": user,
@@ -153,11 +154,11 @@ func (h *Handler) CheckMailCode(w http.ResponseWriter, r *http.Request) {
 
 	/// Чтение JSON данных из тела входящего запроса r и декодирование их в переменную input \\\
 	if err := response.ReadJSON(w, r, &Check); err != nil {
-		response.BadRequest(w, err.Error(), apperror.ErrInvalidRequestBody.Error())
+		//response.BadRequest(w, err.Error(), apperror.ErrInvalidRequestBody.Error())
 		return
 	}
-	/// передача введенного пользователем кода через канал CodeChan в RegisterUser \\\
 
+	/// передача введенного пользователем кода через канал CodeChan в RegisterUser \\\
 	h.CodeChan <- Check.Code
 
 	response.JSON(w, http.StatusOK, Check.Code)

@@ -60,15 +60,11 @@
 
         // Извлечение токена из localStorage
        const token = localStorage.getItem('access_token');
-        // Получаем токен из SessionStorage
-      //  const token = sessionStorage.getItem('access_token');
+
         if (!token) {
-            // Если токен отсутствует, покажите сообщение об ошибке
             document.getElementById('error-message').style.display = 'block';
-            return; // Прервать выполнение функции, не выполнять fetch
+            return;
         }
-
-
         const form = event.target;
         const formData = new FormData(form);
 
@@ -85,8 +81,6 @@
             .then(response => response.json())
             .then(data => {
                 console.log('Заявка создана:', data);
-
-                // Если запрос был успешным, покажите сообщение о успешной отправке
                 document.getElementById('appeal-success').style.display = 'block';
             })
             .catch(error => {
@@ -94,6 +88,5 @@
             });
     });
 </script>
-
 </body>
 </html>

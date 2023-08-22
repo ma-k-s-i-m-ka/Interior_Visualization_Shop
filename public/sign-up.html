@@ -32,9 +32,9 @@
     </form>
 
     <form id="confirmation-form" style="display: none;">
-        <h3 style="padding-right: 30px" class= "active">expect code</h3>
+        <h3 style="padding-right: 30px; color: white" class= "active">expect code</h3>
        <label class="label2" for="code">Mail Code:</label><br>
-       <input class="text2" type="text" id="code" name="code" required><br><br>
+       <input style="color: white" class="text2" type="text" id="code" name="code" required><br><br>
        <button class="btn" type="submit">Send code</button>
     </form>
 
@@ -42,6 +42,10 @@
         <h6 style="margin-left: 30%">You have registered in the system!</h6>
         <a style="text-align: center" href="index.html" class="btn">Return to main window</a>
     </form>
+
+    <h6 id="error-message" style="color:#fce38a; display: none;">Сheck the entered code!</h6>
+    <h6 id="error-message2" style="color:#fce38a; display: none;">Perhaps a user with this email already exists!</h6>
+
 </div>
 
 <div id="response"></div>
@@ -74,11 +78,20 @@
     })
         .then(response => response.json())
         .then(data => {
+            if (data.jwt && data.user) {
+                const loginSuccessForm = document.getElementById('reg-success');
+                loginSuccessForm.style.display = 'block';
 
+            } else if (data.message){
+                const errorDiv = document.getElementById('error-message');
+                errorDiv.style.display = 'block';
+            } else {
+                const errorDiv2 = document.getElementById('error-message2');
+                errorDiv2.style.display = 'block';
+            }
     })
         .catch(error => {
-            // Обработка ошибок
-            console.error('Registration error:', error);
+
         });
   });
   document.getElementById('confirmation-form').addEventListener('submit', function(event) {
@@ -99,8 +112,6 @@
         .then(response => response.json())
         .then(data => {
             // Показываем блок успешного входа и кнопку возврата
-            const loginSuccessForm = document.getElementById('reg-success');
-            loginSuccessForm.style.display = 'block';
         })
         .catch(error => {
             // Обработка ошибок
