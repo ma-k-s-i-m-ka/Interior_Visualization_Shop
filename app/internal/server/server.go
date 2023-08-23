@@ -10,6 +10,7 @@ import (
 	"fmt"
 	"github.com/jackc/pgx/v4"
 	"github.com/julienschmidt/httprouter"
+	"github.com/pkg/browser"
 	"github.com/rs/cors"
 	"net/http"
 	"time"
@@ -24,6 +25,7 @@ type Server struct {
 
 func NewServer(cfg *config.Config, handler *httprouter.Router, log *logger.Logger) *Server {
 
+	/// список разрешенных источников (доменов), заголовков и HTTP-методов, которые разрешены для выполнения на сервере \\\
 	c := cors.New(cors.Options{
 		AllowedOrigins:   []string{"http://localhost:63342"},
 		AllowedMethods:   []string{"GET", "POST", "OPTIONS"},
@@ -46,9 +48,15 @@ func NewServer(cfg *config.Config, handler *httprouter.Router, log *logger.Logge
 	}
 }
 
+/// Функция инициализирующая хранище storage, сервисы services и обработчики handler \\\
+/// Запускает сервер и начинает обрабатывать входящие HTTP запросы \\\
+
 func (s *Server) Run(dbConn *pgx.Conn) error {
 
 	reqTimeout := s.cfg.PostgreSQL.RequestTimeout
+
+	/// Инициализация хранилища userStorage, создание объекта сервиса userService, создание обработчика userHandler для пользователей \\\
+	/// Тот же принцип работы для остальных route \\\
 
 	userStorage := user.NewStorage(dbConn, reqTimeout)
 	userService := user.NewService(userStorage, *s.log)
@@ -68,11 +76,45 @@ func (s *Server) Run(dbConn *pgx.Conn) error {
 	appealHandler.Register(s.handler)
 	s.log.Info("initialized appeal routes")
 
+	/// создание файлового сервера для статических файлов, которые находятся в директории "public" \\\
 	fs := http.FileServer(http.Dir("public"))
 	s.handler.Handler(http.MethodGet, "/", fs)
 
+	/// обработка запросов для пути "/style.css", обслуживаеться файловым сервером fs \\\
+	s.handler.Handler(http.MethodGet, "/style.css", fs)
+	s.handler.Handler(http.MethodGet, "/index.html", fs)
+	s.handler.Handler(http.MethodGet, "/appeal.html", fs)
+	s.handler.Handler(http.MethodGet, "/contacts.html", fs)
+	s.handler.Handler(http.MethodGet, "/portfolio.html", fs)
+	s.handler.Handler(http.MethodGet, "/service.html", fs)
+	s.handler.Handler(http.MethodGet, "/sign-in.html", fs)
+	s.handler.Handler(http.MethodGet, "/sign-up.html", fs)
+	s.handler.Handler(http.MethodGet, "/1.jpg", fs)
+	s.handler.Handler(http.MethodGet, "/2.jpg", fs)
+	s.handler.Handler(http.MethodGet, "/3.jpg", fs)
+	s.handler.Handler(http.MethodGet, "/4.jpg", fs)
+	s.handler.Handler(http.MethodGet, "/5.jpg", fs)
+	s.handler.Handler(http.MethodGet, "/6.jpg", fs)
+	s.handler.Handler(http.MethodGet, "/7.jpg", fs)
+	s.handler.Handler(http.MethodGet, "/8.jpg", fs)
+	s.handler.Handler(http.MethodGet, "/9.jpg", fs)
+	s.handler.Handler(http.MethodGet, "/10.jpg", fs)
+	s.handler.Handler(http.MethodGet, "/tel.png", fs)
+	s.handler.Handler(http.MethodGet, "/vk.jpg", fs)
+	s.handler.Handler(http.MethodGet, "/wp.jpg", fs)
+	s.handler.Handler(http.MethodGet, "/gm.jpg", fs)
+	s.handler.Handler(http.MethodGet, "/clients-bg.jpg", fs)
+
+	/// открытие веб-страницы в браузере \\\
+	err := browser.OpenURL("http://" + s.srv.Addr + "/")
+	if err != nil {
+		return err
+	}
+
 	return s.srv.ListenAndServe()
 }
+
+/// Метоод Shutdown структуры Server. Функция для завершения работы сервера \\\
 
 func (s *Server) Shutdown(ctx context.Context) error {
 	return s.srv.Shutdown(ctx)
